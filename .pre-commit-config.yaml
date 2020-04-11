@@ -1,0 +1,17 @@
+fail_fast: true
+repos:
+- repo: git://github.com/pre-commit/pre-commit-hooks
+  rev: v2.2.1
+  hooks:
+    - id: check-added-large-files
+    - id: check-merge-conflict
+    - id: check-symlinks
+    - id: check-yaml
+    - id: debug-statements
+    - id: detect-private-key
+    - id: double-quote-string-fixer
+    - id: end-of-file-fixer
+    - id: fix-encoding-pragma
+    - id: flake8
+      args: ['--exclude=**/migrations/**,**/__init__.py,**/node-gyp/**,manage.py', '--ignore=W605']
+    - id: no-commit-to-branch
