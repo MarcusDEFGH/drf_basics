@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """drf_basics URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -14,8 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls import include
 from django.urls import path
 
+from malls.api.viewsets import MallViewSet
+
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'mall_adm', MallViewSet)
+
 urlpatterns = [
+    path('', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
