@@ -41,6 +41,7 @@ DJANGO_APPS = [
 
 LOCAL_APPS = [
     'malls',
+    'reviews',
     'stores',
 ]
 
