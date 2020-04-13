@@ -11,7 +11,8 @@ class Mall(models.Model):
     is_working = models.BooleanField(default=False)
     stores = models.ManyToManyField(Store)
     reviews = models.ManyToManyField(Review)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE,
+                                null=True, blank=True)
 
     def __str__(self):
         return self.name
