@@ -18,12 +18,18 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 
+from addresses.api.viewsets import AddressViewSet
 from malls.api.viewsets import MallViewSet
+from reviews.api.viewsets import ReviewViewSet
+from stores.api.viewsets import StoreViewSet
 
 from rest_framework import routers
 
 router = routers.DefaultRouter()
+router.register(r'addresses', AddressViewSet)
 router.register(r'mall_adm', MallViewSet)
+router.register(r'reviews', ReviewViewSet)
+router.register(r'stores', StoreViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
