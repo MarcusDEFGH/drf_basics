@@ -10,7 +10,15 @@ class MallViewSet(viewsets.ModelViewSet):
     serializer_class = MallSerializer
 
     def get_queryset(self):
-        return Mall.objects.filter(is_working=True)
+        queryset = Mall.objects.filter(is_working=True)
+        query_dict = {}
+        query_dict['id'] = self.request.query_params.get('id', None)
+        query_dict['name'] = self.request.query_params.get('name', None)
+
+        query = {key: query_dict[key] for key in query_dict.keys()
+                 if query_dict[key]}
+
+        return queryset.filter(**query)
 
     def list(self, request, *args, **kwargs):
         return super(MallViewSet, self).list(request, *args, **kwargs)
