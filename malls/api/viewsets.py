@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from rest_framework import viewsets
+from rest_framework.filters import SearchFilter
 # from rest_framework.decorators import action
 
 from malls.models import Mall
@@ -8,6 +9,9 @@ from .serializers import MallSerializer
 
 class MallViewSet(viewsets.ModelViewSet):
     serializer_class = MallSerializer
+    filter_backends = (SearchFilter,)
+    search_fields = ('name', 'about', 'address__street',)
+    lookup_field = 'name'
 
     def get_queryset(self):
         queryset = Mall.objects.filter(is_working=True)
