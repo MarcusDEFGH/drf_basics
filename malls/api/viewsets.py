@@ -11,12 +11,13 @@ class MallViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Mall.objects.filter(is_working=True)
-        query_dict = {}
-        query_dict['id'] = self.request.query_params.get('id', None)
-        query_dict['name'] = self.request.query_params.get('name', None)
+        filter_args = ['id', 'name']
+        query = {}
 
-        query = {key: query_dict[key] for key in query_dict.keys()
-                 if query_dict[key]}
+        for arg in filter_args:
+            value = self.request.query_params.get(arg, None)
+            if value is not None:
+                query[arg] = value
 
         return queryset.filter(**query)
 
