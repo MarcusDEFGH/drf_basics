@@ -6,8 +6,8 @@ from stores.models import Store
 
 
 class Mall(models.Model):
-    name = models.CharField(max_length=100)
-    trivia = models.TextField()
+    name = models.CharField(max_length=100, unique=True)
+    about = models.TextField()
     is_working = models.BooleanField(default=False)
     stores = models.ManyToManyField(Store)
     reviews = models.ManyToManyField(Review, blank=True)

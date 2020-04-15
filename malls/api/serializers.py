@@ -8,4 +8,4 @@ class MallSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Mall
-        fields = ('id', 'name', 'trivia', 'address', 'is_working', 'logo')
+        fields = ('id', 'name', 'about', 'address', 'is_working', 'logo')
