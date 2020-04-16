@@ -17,3 +17,9 @@ class Mall(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def has_stores(self):
+        if Store.objects.filter(mall=self):
+            return True
+        return False

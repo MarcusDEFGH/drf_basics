@@ -2,7 +2,7 @@
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import SearchFilter
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 # from rest_framework.decorators import action
 
 from malls.models import Mall
@@ -12,7 +12,7 @@ from .serializers import MallSerializer
 class MallViewSet(viewsets.ModelViewSet):
     serializer_class = MallSerializer
     filter_backends = (SearchFilter,)
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAuthenticated,)
     authentication_classes = (TokenAuthentication,)
     search_fields = ('name', 'about', 'address__street',)
     lookup_field = 'name'
