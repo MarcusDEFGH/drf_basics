@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
+from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
-# from rest_framework.decorators import action
+from rest_framework.decorators import action
 
 from malls.models import Mall
+from malls.models import Manager
 from .serializers import MallSerializer
 
 
@@ -15,7 +17,7 @@ class MallViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     authentication_classes = (TokenAuthentication,)
     search_fields = ('name', 'about', 'address__street',)
-    lookup_field = 'name'
+    lookup_field = 'id'
 
     def get_queryset(self):
         queryset = Mall.objects.filter(is_working=True)
@@ -49,7 +51,11 @@ class MallViewSet(viewsets.ModelViewSet):
         return super(MallViewSet, self).partial_update(request,
                                                        *args, **kwargs)
 
-    # @action(methods=['get'], detail=True)
-    # def alert(self, request, pk=None):
-    #     breakpoint()
-    #     pass
+    @action(methods=['post'], detail=True)
+    def set_manager(self, request, id):
+        manager = Manager.objects.get(id=request.data['manager_pk'])
+        mall = Mall.objects.get(pk=id)
+        mall.manager = manager
+        mall.save()
+
+        return HttpResponse('The manager was set successfuly.')
